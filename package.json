@@ -1,0 +1,14 @@
+{
+  "name": "@zr-devtools/home",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "devDependencies": {
+    "@aimerfan/eslint-config": "^0.2.4",
+    "@types/node": "^20.14.9",
+    "eslint": "^9.5.0",
+    "typescript": "^5.5.2"
+  }
+}

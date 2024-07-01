@@ -1,0 +1,21 @@
+{
+  "name": "@zr-devtools/playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "dependencies": {
+    "vue": "^3.4.30",
+    "zrender": "^5.6.0",
+    "zrender-devtools": "workspace:zrender-devtools@*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "vite": "^5.3.1"
+  }
+}
