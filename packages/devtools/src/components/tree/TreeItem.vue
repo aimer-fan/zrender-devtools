@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { resetActiveItemStyle, setActiveItemStyle } from '../../stores/select'
+import { resetActiveItemStyle, setActiveItemStyle } from '../../stores/mask/mask'
 import {
   type TreeItem,
   activeTreeId,

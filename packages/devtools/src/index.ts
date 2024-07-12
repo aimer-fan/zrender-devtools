@@ -5,7 +5,6 @@ import type { Group } from 'zrender'
 import { type ZRenderType } from 'zrender'
 
 import App from './App.vue'
-import type { TreeItem } from './stores/tree'
 import {
   activeTreeId,
   openKeys,
@@ -13,30 +12,39 @@ import {
   setActiveTreeId,
   tree,
 } from './stores/tree'
-import { SelectRect, resetActiveItemStyle, selecting, setActiveItemStyle, setup } from './stores/select'
-import type { ElementType } from './stores/types'
+import { resetActiveItemStyle, selecting, setActiveItemStyle, setup } from './stores/mask/mask'
 import resizeDirective from './directives/resize'
+import { isMask } from './stores/mask/shapes'
+import type { TreeItem } from './stores/types'
 
 type Elements = ReturnType<ZRenderType['storage']['getRoots']>
 
 export function createDevtools (ins: ZRenderType) {
   function mapElement (elements: Elements): TreeItem[] {
-    return elements.filter(ele => !(ele as any).__skip_zr_devtool).map(ele => {
-      if (ele.isGroup) {
+    return elements
+      .filter(ele => {
+        if ('__skip_zr_devtool' in ele) {
+          return !ele.__skip_zr_devtool
+        } else {
+          return true
+        }
+      })
+      .map(ele => {
+        if (ele.isGroup) {
+          return {
+            id: ele.id,
+            type: 'group',
+            isGroup: true,
+            children: mapElement((ele as Group).children()),
+            target: markRaw(ele),
+          }
+        }
         return {
           id: ele.id,
-          type: 'group',
-          isGroup: true,
-          children: mapElement((ele as Group).children()),
+          type: ele.type,
           target: markRaw(ele),
         }
-      }
-      return {
-        id: ele.id,
-        type: ele.type as ElementType,
-        target: markRaw(ele),
-      }
-    }) as TreeItem[]
+      }) as TreeItem[]
   }
 
   function flush () {
@@ -65,7 +73,7 @@ export function createDevtools (ins: ZRenderType) {
         selecting.value = false
         resetActiveItemStyle()
         // if click on mask
-        if (e.target instanceof SelectRect) {
+        if (isMask(e.target)) {
           setActiveTreeId(e.target.target_id, true)
           return
         }
@@ -79,7 +87,7 @@ export function createDevtools (ins: ZRenderType) {
     ins.on('mousemove', e => {
       if (e.target && e.target.id) {
         if (selecting.value) {
-          if (e.target instanceof SelectRect) {
+          if (isMask(e.target)) {
             return
           }
           setActiveItemStyle(getTargetId(e.target))

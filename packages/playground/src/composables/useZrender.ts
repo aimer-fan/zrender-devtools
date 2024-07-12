@@ -56,7 +56,6 @@ export function useZrender (ref: Ref<HTMLElement>) {
     zr.value = init(ref.value)
 
     zr.value.on('click', (e) => {
-      console.log(e.target?.type, e.target)
       // eslint-disable-next-line ts/ban-ts-comment
       // @ts-ignore
       window.t = e.target

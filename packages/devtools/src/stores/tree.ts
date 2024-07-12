@@ -1,18 +1,11 @@
+import type { Ref } from 'vue'
 import { computed, nextTick, ref } from 'vue'
 
 import { dfs } from '../shared/dfs'
 import { getNodeChain } from '../shared'
-import type { ElementType, TargetType } from './types'
+import type { TreeItem } from './types'
 
-export interface TreeItem<T extends ElementType = ElementType> {
-  id: number;
-  isGroup?: boolean;
-  type: T;
-  children?: TreeItem[];
-  target: TargetType<T>;
-}
-export type TreeList<T extends ElementType = any> = TreeItem<T>[]
-export const tree = ref<TreeItem[]>([])
+export const tree: Ref<TreeItem[]> = ref([])
 
 export const activeTreeId = ref<number>(undefined)
 export const activeTreeItem = computed(() => dfs(tree.value, activeTreeId.value))

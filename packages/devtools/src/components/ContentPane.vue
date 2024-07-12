@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { selecting, showGroup } from '../stores/select'
+import { selecting, showGroup } from '../stores/mask/mask'
 import {
   TreeItem,
   activeTreeItem,

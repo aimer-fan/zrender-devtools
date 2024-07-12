@@ -73,10 +73,10 @@ export function rect (x: number, y: number) {
     },
   })
 
-  r.animate('shape', true)
-    .when(500, { x: 200 })
-    .when(1000, { x: 0 })
-    .start()
+  // r.animate('shape', true)
+  //   .when(500, { x: 200 })
+  //   .when(1000, { x: 0 })
+  //   .start()
   return createShape('Rect', r, { x, y })
 }
 

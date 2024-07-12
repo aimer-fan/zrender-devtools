@@ -1,69 +1,26 @@
-import type { Arc, BezierCurve, Circle, Displayable, Droplet, Ellipse, Group, Heart, Image, Isogon, Line, Path, Polygon, Polyline, Rect, Rose, Sector, Star, Text, Trochoid } from 'zrender'
-import type { CompoundPath } from 'zrender'
+import type {
+  CompoundPath, Arc, BezierCurve, Circle, Droplet, Ellipse, Heart, Image, Isogon,
+  Line, Path, Polygon, Polyline, Rect, Rose, Sector, Star, Text, Trochoid, Group,
+} from 'zrender'
 
-const types = [
-  'group',
-
-  'arc',
-  'bezier-curve',
-  'circle',
-  'compound',
-  'droplet',
-  'ellipse',
-  'heart',
-  'image',
-  'isogon',
-  'line',
-  'path',
-  'polygon',
-  'polyline',
-  'rect',
-  'rose',
-  'sector',
-  'star',
-  'text',
-  'trochoid',
-] as const
-
-export type ElementType = typeof types[number]
-export type TargetType<T extends ElementType> = T extends 'group'
-  ? Group
-  : T extends 'arc'
-    ? Arc
-    : T extends 'bezier-curve'
-      ? BezierCurve
-      : T extends 'circle'
-        ? Circle
-        : T extends 'compound'
-          ? CompoundPath
-          : T extends 'droplet'
-            ? Droplet
-            : T extends 'ellipse'
-              ? Ellipse
-              : T extends 'heart'
-                ? Heart
-                : T extends 'image'
-                  ? Image
-                  : T extends 'isogon'
-                    ? Isogon
-                    : T extends 'line'
-                      ? Line
-                      : T extends 'path'
-                        ? Path
-                        : T extends 'polygon'
-                          ? Polygon
-                          : T extends 'polyline'
-                            ? Polyline
-                            : T extends 'rect'
-                              ? Rect
-                              : T extends 'rose'
-                                ? Rose
-                                : T extends 'sector'
-                                  ? Sector
-                                  : T extends 'star'
-                                    ? Star
-                                    : T extends 'text'
-                                      ? Text
-                                      : T extends 'trochoid'
-                                        ? Trochoid
-                                        : Displayable
+type TreeItemBase = { id: number; isGroup?: boolean; children?: TreeItem[] }
+export type TreeItem = ({ type: 'group'; target: Group } & TreeItemBase)
+| ({ type: 'arc'; target: Arc } & TreeItemBase)
+| ({ type: 'bezier-curve'; target: BezierCurve } & TreeItemBase)
+| ({ type: 'circle'; target: Circle } & TreeItemBase)
+| ({ type: 'compound'; target: CompoundPath } & TreeItemBase)
+| ({ type: 'droplet'; target: Droplet } & TreeItemBase)
+| ({ type: 'ellipse'; target: Ellipse } & TreeItemBase)
+| ({ type: 'heart'; target: Heart } & TreeItemBase)
+| ({ type: 'image'; target: Image } & TreeItemBase)
+| ({ type: 'isogon'; target: Isogon } & TreeItemBase)
+| ({ type: 'line'; target: Line } & TreeItemBase)
+| ({ type: 'path'; target: Path } & TreeItemBase)
+| ({ type: 'polygon'; target: Polygon } & TreeItemBase)
+| ({ type: 'polyline'; target: Polyline } & TreeItemBase)
+| ({ type: 'rect'; target: Rect } & TreeItemBase)
+| ({ type: 'rose'; target: Rose } & TreeItemBase)
+| ({ type: 'sector'; target: Sector } & TreeItemBase)
+| ({ type: 'star'; target: Star } & TreeItemBase)
+| ({ type: 'text'; target: Text } & TreeItemBase)
+| ({ type: 'trochoid'; target: Trochoid } & TreeItemBase)
