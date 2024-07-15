@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { selecting, showGroup } from '../stores/mask/mask'
-import {
-  TreeItem,
-  activeTreeItem,
-  tree,
-} from '../stores/tree'
+import { activeTreeItem, tree } from '../stores/tree'
 import Details from './details/Details.vue'
 import IconClose from './svg/close.vue'
 import IconReload from './svg/reload.vue'
@@ -12,6 +8,7 @@ import IconSearch from './svg/search.vue'
 import IconCheckboxBadge from './svg/checkbox-badge.vue'
 import Tree from './tree/Tree.vue'
 import { ref } from 'vue'
+import { TreeItem } from '../stores/types'
 
 defineProps<{ show: boolean }>()
 

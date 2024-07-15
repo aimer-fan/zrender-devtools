@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { resetActiveItemStyle, setActiveItemStyle } from '../../stores/mask/mask'
-import {
-  type TreeItem,
-  activeTreeId,
-  setActiveTreeId,
-  triggerOpenKey,
-} from '../../stores/tree'
+import { activeTreeId, setActiveTreeId, triggerOpenKey } from '../../stores/tree'
+import { TreeItem } from '../../stores/types'
 import IconRight from '../svg/right.vue'
 
 const props = withDefaults(

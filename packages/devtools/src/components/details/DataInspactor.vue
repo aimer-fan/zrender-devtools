@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import IconRight from '../svg/right.vue'
-import { isArray, isBoolean, isNumber, isObject, isString } from '../../shared/types'
+import { isArray, isBoolean, isNumber, isObject, isString, isFunction } from '../../shared/types'
 
 const props = withDefaults(
   defineProps<{
     title?: string;
-    data: Record<string, any>;
+    data: Record<string, any> | Function;
     depth?: number;
     defaultOpenDepth?: number;
   }>(),
@@ -36,7 +36,7 @@ function formatValue (value: unknown) {
   if (isArray(value)) {
     return `Array[${value.length}]`
   }
-  if (value instanceof Function) {
+  if (isFunction(value)) {
     return 'Function'
   }
   if (isObject(value)) {
@@ -74,6 +74,13 @@ function sendDataToConsole () {
             <span class="zr_devtools-inspector-prop_name" style="margin-left: 24px;">{{ key }}</span>
             <span class="zr_devtools-inspector-split">:</span>
             <span class="zr_devtools-inspector-value" :class="(typeof value)">{{ formatValue(value) }}</span>
+          </div>
+        </div>
+        <div v-else-if="isFunction(value)" class="zr_devtools-inspector-item">
+          <div class="zr_devtools-inspector-title">
+            <span class="zr_devtools-inspector-prop_name" style="margin-left: 24px;">{{ key }}</span>
+            <span class="zr_devtools-inspector-split">:</span>
+            <span class="zr_devtools-inspector-value">Function</span>
           </div>
         </div>
         <DataInspactor v-else :data="value" :depth="depth + 1">

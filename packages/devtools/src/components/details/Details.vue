@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { TreeItem } from '../../stores/tree'
 import DataInspactor from './DataInspactor.vue'
+import { TreeItem } from '../../stores/types'
 
 const props = defineProps<{ data?: TreeItem }>()
 

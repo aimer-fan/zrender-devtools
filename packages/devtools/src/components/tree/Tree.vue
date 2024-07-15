@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { TreeItem, openKeys } from '../../stores/tree'
+import { openKeys } from '../../stores/tree'
+import { TreeItem } from '../../stores/types'
 import Item from './TreeItem.vue'
 
 withDefaults(defineProps<{

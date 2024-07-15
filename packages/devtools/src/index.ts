@@ -1,6 +1,6 @@
 import './styles/index.less'
 
-import { createApp, markRaw } from 'vue'
+import { createApp, markRaw, nextTick } from 'vue'
 import type { Group } from 'zrender'
 import { type ZRenderType } from 'zrender'
 
@@ -52,9 +52,11 @@ export function createDevtools (ins: ZRenderType) {
     const _openKeys = openKeys.value
     resetActiveTree()
 
-    tree.value = mapElement(ins.storage.getRoots())
-    openKeys.value = _openKeys
-    setActiveTreeId(_activeTreeId)
+    nextTick(() => {
+      tree.value = mapElement(ins.storage.getRoots())
+      openKeys.value = _openKeys
+      setActiveTreeId(_activeTreeId)
+    })
   }
 
   function getTargetId (target: Elements[0]) {

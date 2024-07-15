@@ -1,12 +1,25 @@
 import { Circle, Group } from 'zrender'
-import type { Arc, Displayable, Polygon } from 'zrender'
+import type {
+  Arc, BezierCurve, Displayable, Droplet, Ellipse, Heart, Isogon,
+  Polygon, Rose, Sector, Star, Trochoid,
+} from 'zrender'
 import type { TreeItem } from '../types'
-import { MaskArc, MaskPolygon, MaskRect } from './shapes'
+import {
+  MaskArc, MaskBezierCurve, MaskCircle, MaskDroplet, MaskEllipse, MaskHeart, MaskIsogon,
+  MaskPolygon, MaskRect, MaskRose, MaskSector,
+  MaskStar,
+  MaskTrochoid,
+} from './shapes'
 
 /** Mask Background Color */
 const MASK_BG_COLOR = 'rgba(66, 184, 131, 0.4)'
+const MASK_STROKE_COLOR = 'transparent'
+const defaultMaskStyle = {
+  fill: MASK_BG_COLOR,
+  stroke: MASK_STROKE_COLOR,
+}
 
-function getPointsGroup (points: number[][], scale: number) {
+function genPointsGroup (points: number[][], scale: number) {
   const pointsGroup = new Group()
   points.forEach(([cx, cy]) => {
     pointsGroup.add(new Circle({
@@ -31,7 +44,81 @@ export const handler = {
         startAngle: shape.startAngle,
         endAngle: shape.endAngle,
       },
-      style: { fill: MASK_BG_COLOR },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  'bezier-curve': (group: Group, id: number, curve: BezierCurve) => {
+    const shape = curve.shape
+    const [x1, y1] = curve.transformCoordToGlobal(shape.x1, shape.y1)
+    const [x2, y2] = curve.transformCoordToGlobal(shape.x2, shape.y2)
+    const [cpx1, cpy1] = curve.transformCoordToGlobal(shape.cpx1, shape.cpy1)
+
+    group.add(new MaskBezierCurve(id, {
+      shape: {
+        x1,
+        y1,
+        x2,
+        y2,
+        cpx1,
+        cpy1,
+      },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  circle: (group: Group, id: number, circle: Circle) => {
+    const [cx, cy] = circle.transformCoordToGlobal(circle.shape.cx, circle.shape.cy)
+    const r = circle.shape.r * circle.getGlobalScale()[0]
+
+    group.add(new MaskCircle(id, {
+      shape: { cx, cy, r },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  droplet: (group: Group, id: number, droplet: Droplet) => {
+    const [cx, cy] = droplet.transformCoordToGlobal(droplet.shape.cx, droplet.shape.cy)
+    const [scaleX, scaleY] = droplet.getGlobalScale()
+    const width = droplet.shape.width * scaleX
+    const height = droplet.shape.height * scaleY
+    group.add(new MaskDroplet(id, {
+      shape: { cx, cy, width, height },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  ellipse: (group: Group, id: number, ellipse: Ellipse) => {
+    const [cx, cy] = ellipse.transformCoordToGlobal(ellipse.shape.cx, ellipse.shape.cy)
+    const [scaleX, scaleY] = ellipse.getGlobalScale()
+    const rx = ellipse.shape.rx * scaleX
+    const ry = ellipse.shape.ry * scaleY
+
+    group.add(new MaskEllipse(id, {
+      shape: { cx, cy, rx, ry },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  heart: (group: Group, id: number, heart: Heart) => {
+    const [cx, cy] = heart.transformCoordToGlobal(heart.shape.cx, heart.shape.cy)
+    const [scaleX, scaleY] = heart.getGlobalScale()
+    const width = heart.shape.width * scaleX
+    const height = heart.shape.height * scaleY
+    group.add(new MaskHeart(id, {
+      shape: { cx, cy, width, height },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  isogon: (group: Group, id: number, isogon: Isogon) => {
+    const [x, y] = isogon.transformCoordToGlobal(isogon.shape.x, isogon.shape.y)
+    const [scaleX] = isogon.getGlobalScale()
+    const r = isogon.shape.r * scaleX
+    const n = isogon.shape.n
+    group.add(new MaskIsogon(id, {
+      shape: { x, y, r, n },
+      style: defaultMaskStyle,
     }))
   },
 
@@ -42,9 +129,59 @@ export const handler = {
 
     group.add(new MaskPolygon(id, {
       shape: { points },
-      style: { fill: MASK_BG_COLOR },
+      style: defaultMaskStyle,
     }))
-    group.add(getPointsGroup(points, scaleX))
+    group.add(genPointsGroup(points, scaleX))
+  },
+
+  rose: (group: Group, id: number, rose: Rose) => {
+    const [cx, cy] = rose.transformCoordToGlobal(rose.shape.cx, rose.shape.cy)
+    const [scaleX] = rose.getGlobalScale()
+    const r = rose.shape.r.map(r => r * scaleX)
+    const k = rose.shape.k
+    const n = rose.shape.n
+    group.add(new MaskRose(id, {
+      shape: { cx, cy, r, k, n },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  sector: (group: Group, id: number, sector: Sector) => {
+    const [cx, cy] = sector.transformCoordToGlobal(sector.shape.cx, sector.shape.cy)
+    const [scaleX] = sector.getGlobalScale()
+    const r = sector.shape.r * scaleX
+    const r0 = sector.shape.r0 * scaleX
+    const startAngle = sector.shape.startAngle
+    const endAngle = sector.shape.endAngle
+    const clockwise = sector.shape.clockwise
+    group.add(new MaskSector(id, {
+      shape: { cx, cy, r, r0, startAngle, endAngle, clockwise },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  star: (group: Group, id: number, star: Star) => {
+    const [cx, cy] = star.transformCoordToGlobal(star.shape.cx, star.shape.cy)
+    const [scaleX] = star.getGlobalScale()
+    const r = star.shape.r * scaleX
+    const r0 = star.shape.r0 * scaleX
+    const n = star.shape.n
+    group.add(new MaskStar(id, {
+      shape: { cx, cy, r, r0, n },
+      style: defaultMaskStyle,
+    }))
+  },
+
+  trochoid: (group: Group, id: number, trochoid: Trochoid) => {
+    const [cx, cy] = trochoid.transformCoordToGlobal(trochoid.shape.cx, trochoid.shape.cy)
+    const [scaleX] = trochoid.getGlobalScale()
+    const r = trochoid.shape.r * scaleX
+    const r0 = trochoid.shape.r0 * scaleX
+    const d = trochoid.shape.d
+    group.add(new MaskTrochoid(id, {
+      shape: { cx, cy, r, r0, d },
+      style: defaultMaskStyle,
+    }))
   },
 
   default: (group: Group, id: number, shape: Displayable) => {
@@ -59,7 +196,7 @@ export const handler = {
         width: boundingRect.width * scaleX,
         height: boundingRect.height * scaleY,
       },
-      style: { fill: MASK_BG_COLOR },
+      style: defaultMaskStyle,
     }))
   },
 }
@@ -70,22 +207,16 @@ export const maskHandler = (group: Group, item: TreeItem) => {
     const { target, type } = item
     const { id } = target
 
-    switch (type) {
-      case 'arc':
-        handler.arc(group, id, target)
-        break
-
-      case 'polygon':
-      case 'polyline': {
-        handler.polygon(group, id, target)
-        break
-      }
-
-      case 'rect':
-      default: {
-        handler.default(group, id, target as Displayable)
-        break
-      }
+    if (type in handler) {
+      handler[type](group, id, target)
+      return
     }
+
+    if (type === 'polyline') {
+      handler.polygon(group, id, target)
+      return
+    }
+
+    handler.default(group, id, (target as Displayable))
   }
 }
