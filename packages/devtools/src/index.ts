@@ -9,6 +9,9 @@ import { resetActiveItemStyle, selecting, setActiveItemStyle, setup } from './st
 import resizeDirective from './directives/resize'
 import { isMask } from './stores/mask/shapes'
 import type { TreeItem } from './stores/types'
+import { setOptions } from './stores/options'
+
+import type { DevtoolsOptions } from './stores/options'
 
 type Elements = ReturnType<ZRenderType['storage']['getRoots']>
 
@@ -17,7 +20,9 @@ export interface ZrenderDevtools {
   unmount: () => void;
 }
 
-export function createDevtools (ins: ZRenderType): ZrenderDevtools {
+export function createDevtools (ins: ZRenderType, options?: DevtoolsOptions): ZrenderDevtools {
+  setOptions(options)
+
   function mapElement (elements: Elements): TreeItem[] {
     return elements
       .filter(ele => {
@@ -104,3 +109,5 @@ export function createDevtools (ins: ZRenderType): ZrenderDevtools {
 
   return { mount, unmount }
 }
+
+export type ZrenderDevtoolsOptions = DevtoolsOptions

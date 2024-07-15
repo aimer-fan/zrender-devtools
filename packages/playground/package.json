@@ -12,7 +12,7 @@
   "dependencies": {
     "vue": "^3.4.30",
     "zrender": "^5.6.0",
-    "zrender-devtools": "latest"
+    "zrender-devtools": "workspace:zrender-devtools@*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

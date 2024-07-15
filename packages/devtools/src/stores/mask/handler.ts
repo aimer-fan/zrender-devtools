@@ -10,6 +10,7 @@ import {
   MaskStar,
   MaskTrochoid,
 } from './shapes'
+import { options } from '../options'
 
 /** Mask Background Color */
 const MASK_BG_COLOR = 'rgba(66, 184, 131, 0.4)'
@@ -23,7 +24,7 @@ function genPointsGroup (points: number[][], scale: number) {
   const pointsGroup = new Group()
   points.forEach(([cx, cy]) => {
     pointsGroup.add(new Circle({
-      shape: { cx, cy, r: 2 * scale },
+      shape: { cx, cy, r: (options.mask.pointSize ?? 1) * scale },
       style: { fill: 'red' },
     }))
   })

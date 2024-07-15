@@ -55,8 +55,8 @@ importers:
         specifier: ^5.6.0
         version: 5.6.0
       zrender-devtools:
-        specifier: latest
-        version: 0.0.1(typescript@5.5.2)
+        specifier: workspace:zrender-devtools@*
+        version: link:../devtools
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.0.5
@@ -1309,9 +1309,6 @@ packages:
     resolution: {integrity: sha512-D7eujBWkLa3p2sIpJA0d1pr7es+a7m0vFAnZLlCEKq/Ij2k0MLi9Br2UPxoxdYystm5K1yeBGzub0FlYUEWj2Q==}
     engines: {node: '>=8.0.0'}
     hasBin: true
-
-  zrender-devtools@0.0.1:
-    resolution: {integrity: sha512-SpV4YP+VyRuj/QK0iFY3TqMGXI4CRGV/O941OzHXXxE6ZetSPUU00GCDN3r1yqSURd4I7EsJJC22Mxvz6My6VQ==}
 
   zrender@5.6.0:
     resolution: {integrity: sha512-uzgraf4njmmHAbEUxMJ8Oxg+P3fT04O+9p7gY+wJRVxo8Ge+KmYv0WJev945EH4wFuc4OY2NLXz46FZrWS9xJg==}
@@ -2566,14 +2563,6 @@ snapshots:
       validator: 13.12.0
     optionalDependencies:
       commander: 9.5.0
-
-  zrender-devtools@0.0.1(typescript@5.5.2):
-    dependencies:
-      stats.js: 0.17.0
-      vue: 3.4.30(typescript@5.5.2)
-      zrender: 5.6.0
-    transitivePeerDependencies:
-      - typescript
 
   zrender@5.6.0:
     dependencies:
