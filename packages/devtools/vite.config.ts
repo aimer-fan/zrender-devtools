@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
-
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   build: {
@@ -12,6 +12,9 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: 'zrender-devtools',
     },
+    rollupOptions: {
+      external: ['vue', 'zrender'],
+    }
   },
-  plugins: [vue()],
+  plugins: [vue(), dts({ rollupTypes: true })],
 })

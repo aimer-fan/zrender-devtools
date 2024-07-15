@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useZrender } from './composables/useZrender'
-import { createDevtools } from 'zrender-devtools'
+import 'zrender-devtools/styles.css'
+import { ZrenderDevtools, createDevtools } from 'zrender-devtools'
 
 const rootRef = ref<HTMLElement>()
 const devtoolRef = ref<HTMLElement>()
 const { zr } = useZrender(rootRef)
 
-
+let devtool: ZrenderDevtools
 onMounted(() => {
-  createDevtools(zr.value).mount(devtoolRef.value)
+  devtool = createDevtools(zr.value)
+  devtool.mount(devtoolRef.value)
+})
+onUnmounted(() => {
+  devtool.unmount()
 })
 </script>
 

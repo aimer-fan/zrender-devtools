@@ -1,17 +1,10 @@
-import './styles/index.less'
-
+import type { App as VueApp } from 'vue'
 import { createApp, markRaw, nextTick } from 'vue'
 import type { Group } from 'zrender'
 import { type ZRenderType } from 'zrender'
 
 import App from './App.vue'
-import {
-  activeTreeId,
-  openKeys,
-  resetActiveTree,
-  setActiveTreeId,
-  tree,
-} from './stores/tree'
+import { activeTreeId, openKeys, resetActiveTree, setActiveTreeId, tree } from './stores/tree'
 import { resetActiveItemStyle, selecting, setActiveItemStyle, setup } from './stores/mask/mask'
 import resizeDirective from './directives/resize'
 import { isMask } from './stores/mask/shapes'
@@ -19,7 +12,12 @@ import type { TreeItem } from './stores/types'
 
 type Elements = ReturnType<ZRenderType['storage']['getRoots']>
 
-export function createDevtools (ins: ZRenderType) {
+export interface ZrenderDevtools {
+  mount: (id: any) => void;
+  unmount: () => void;
+}
+
+export function createDevtools (ins: ZRenderType): ZrenderDevtools {
   function mapElement (elements: Elements): TreeItem[] {
     return elements
       .filter(ele => {
@@ -67,6 +65,8 @@ export function createDevtools (ins: ZRenderType) {
     return target.id
   }
 
+  let vm: VueApp
+
   const mount = (id: any) => {
     tree.value = mapElement(ins.storage.getRoots())
 
@@ -74,16 +74,11 @@ export function createDevtools (ins: ZRenderType) {
       if (selecting.value) {
         selecting.value = false
         resetActiveItemStyle()
-        // if click on mask
         if (isMask(e.target)) {
           setActiveTreeId(e.target.target_id, true)
           return
         }
       }
-
-      // if (e.target && e.target.id) {
-      //   setActiveTreeId(getTargetId(e.target), true)
-      // }
     })
 
     ins.on('mousemove', e => {
@@ -99,9 +94,13 @@ export function createDevtools (ins: ZRenderType) {
 
     setup(ins)
 
-    createApp(App, { flush })
-      .directive('resize', resizeDirective)
-      .mount(id)
+    vm = createApp(App, { flush }).directive('resize', resizeDirective)
+    vm.mount(id)
   }
-  return { mount }
+
+  function unmount () {
+    vm?.unmount()
+  }
+
+  return { mount, unmount }
 }
