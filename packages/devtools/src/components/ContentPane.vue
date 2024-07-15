@@ -9,6 +9,7 @@ import IconCheckboxBadge from './svg/checkbox-badge.vue'
 import Tree from './tree/Tree.vue'
 import { ref } from 'vue'
 import { TreeItem } from '../stores/types'
+import { useStats } from '../stores/stats'
 
 defineProps<{ show: boolean }>()
 
@@ -25,6 +26,8 @@ function emitFlush () {
   flushing.value = true
   emit('flush')
 }
+
+const { wrapper } = useStats()
 </script>
 
 <template>
@@ -50,7 +53,7 @@ function emitFlush () {
 
     <div class="zr_devtools-pane-content">
       <div v-resize="{ direction: 'bottom' }" class="zr_devtools-content-resizeable" style="height: 300px;">
-        <div class="zr_devtools-content-tree">
+        <div ref="wrapper" class="zr_devtools-content-tree">
           <Tree :data="(tree as TreeItem[])" />
         </div>
       </div>

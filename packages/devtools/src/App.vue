@@ -11,10 +11,11 @@ const showPane = ref(true)
 
 <template>
   <main class="zr_devtools-main">
-    <DevtoolSVG
+    <img
+      src="./assets/logo.png"
       class="zr_devtools-trigger"
       @click="showPane = true"
-    />
+    >
     <ContentPane
       v-model:show="showPane"
       @flush="flush"
@@ -36,16 +37,9 @@ const showPane = ref(true)
   position: absolute;
   right: 50px;
   bottom: 150px;
-  font-size: 42px;
-  padding: 4px;
-  line-height: 0;
-  border-radius: 4px;
-  background-color: #10B9BC;
-  color: #fff;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   transition: background-color 0.3s;
-  &:hover {
-    background-color: #078d82;
-  }
 }
 </style>
