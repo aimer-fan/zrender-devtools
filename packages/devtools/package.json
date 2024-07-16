@@ -1,6 +1,6 @@
 {
   "name": "zrender-devtools",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/zrender-devtools.umd.js",
   "module": "dist/zrender-devtools.mjs",
