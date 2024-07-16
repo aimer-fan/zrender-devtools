@@ -2,11 +2,11 @@
 import { ref } from 'vue'
 
 import ContentPane from './components/ContentPane.vue'
-import DevtoolSVG from './components/svg/devtool.vue'
+import { options } from './stores/options'
 
 defineProps<{ flush: () => void }>()
 
-const showPane = ref(true)
+const showPane = ref(options.defaultShowPane)
 </script>
 
 <template>

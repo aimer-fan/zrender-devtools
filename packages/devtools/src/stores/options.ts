@@ -1,11 +1,15 @@
-export interface DevtoolsOptions {
+export interface Options {
+  defaultShowPane: boolean;
   // Options for Mask
   mask: { pointSize: number };
 }
-
-export let options: DevtoolsOptions
+export type DevtoolsOptions = Partial<Options>
+export let options: Options
 
 export function setOptions (opt?: DevtoolsOptions) {
-  const defaultOptions: DevtoolsOptions = { mask: { pointSize: 2 } }
+  const defaultOptions: Options = {
+    defaultShowPane: true,
+    mask: { pointSize: 2 },
+  }
   options = Object.assign({}, defaultOptions, opt)
 }

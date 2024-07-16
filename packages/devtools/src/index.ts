@@ -20,6 +20,8 @@ export interface ZrenderDevtools {
   unmount: () => void;
 }
 
+export type { DevtoolsOptions }
+
 export function createDevtools (ins: ZRenderType, options?: DevtoolsOptions): ZrenderDevtools {
   setOptions(options)
 
@@ -109,5 +111,3 @@ export function createDevtools (ins: ZRenderType, options?: DevtoolsOptions): Zr
 
   return { mount, unmount }
 }
-
-export type ZrenderDevtoolsOptions = DevtoolsOptions
