@@ -126,10 +126,13 @@ const { wrapper } = useStats()
     display: grid;
     grid-template-rows: auto 1fr;
     .zr_devtools-content-resizeable {
+      width: 100%;
       position: relative;
+      overflow: hidden;
     }
 
     .zr_devtools-content-tree {
+      width: 100%;
       height: 100%;
       box-sizing: border-box;
       border-bottom: 1px solid #eee;
@@ -138,6 +141,7 @@ const { wrapper } = useStats()
     }
 
     .zr_devtools-content-properties {
+      position: relative;
       overflow: auto;
       padding: 4px;
     }

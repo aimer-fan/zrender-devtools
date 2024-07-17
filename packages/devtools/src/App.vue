@@ -32,6 +32,17 @@ const showPane = ref(options.defaultShowPane)
   z-index: 999;
   color: rgba(0, 0, 0, 0.9);
   font-size: 16px;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
 }
 .zr_devtools-trigger {
   position: absolute;

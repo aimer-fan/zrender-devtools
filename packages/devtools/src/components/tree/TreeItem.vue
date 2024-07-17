@@ -45,7 +45,10 @@ function handleMouseEnter () {
       @click.stop="toggleOpenIcon(item)"
     />
     <div class="zr_devtools-tree_item-content">
-      <div>{{ item.type.toUpperCase() }}</div>
+      <span>{{ item.type.toUpperCase() }}</span>
+      <span class="zr_devtools-tree_item_name">
+        {{ item.target?.name ?? '' }}
+      </span>
     </div>
   </div>
 </template>
@@ -62,6 +65,12 @@ function handleMouseEnter () {
 
   &.active {
     background-color: rgba(66, 184, 131, 1);
+
+    .zr_devtools-tree_item-content {
+      .zr_devtools-tree_item_name {
+        color: #333;
+      }
+    }
   }
   .zr_devtools-tree_item_group-icon {
     line-height: 1;
@@ -75,10 +84,7 @@ function handleMouseEnter () {
   }
   .zr_devtools-tree_item-content {
     padding: 4px 8px;
-    display: flex;
-    align-items: baseline;
-
-    .zr_devtools-item_id {
+    .zr_devtools-tree_item_name {
       margin-left: 8px;
       font-size: 12px;
       line-height: 1;

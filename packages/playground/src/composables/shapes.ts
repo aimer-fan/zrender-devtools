@@ -13,6 +13,7 @@ function createShape (
   pos: { x: number; y: number },
 ) {
   const group = new Group({
+    name: shapeName,
     x: pos.x,
     y: pos.y,
   })
@@ -36,6 +37,7 @@ export function text (x: number, y: number) {
   })
   const t = new Text({
     rectHover: true,
+    name: 'every long long long long long long long long long long long long long long long long long long long long name',
     style: {
       text: 'the quick brown fox jumped',
       x: 0,
@@ -45,6 +47,7 @@ export function text (x: number, y: number) {
       borderWidth: 0.3,
       borderColor: '#000',
     },
+    extra: { data: 'every long long long long long long long long long long long long long long long long long long long long name' },
   })
   const t2 = new Text({
     rectHover: true,

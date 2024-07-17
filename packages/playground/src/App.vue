@@ -11,7 +11,7 @@ const { zr } = useZrender(rootRef)
 let devtool: ZrenderDevtools
 onMounted(() => {
   devtool = createDevtools(zr.value, {
-    defaultShowPane: false,
+    defaultShowPane: true,
     mask: { pointSize: 10 },
   })
   devtool.mount(devtoolRef.value)

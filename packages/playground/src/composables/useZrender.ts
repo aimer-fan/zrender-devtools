@@ -47,6 +47,7 @@ function resizeable (zr: ZRenderType, group: Group) {
 export function useZrender (ref: Ref<HTMLElement>) {
   const zr = shallowRef<ZRenderType>()
   const rootGroup = new Group({
+    name: 'root group',
     x: 24,
     y: 24,
   })

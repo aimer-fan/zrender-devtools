@@ -145,7 +145,7 @@ class Resizer {
     resizeController.appendChild(resizeLine)
 
     const controlerZIndex = 999
-    const controlerSize = 4
+    const controlerSize = 2
 
     resizeController.addEventListener('mouseenter', this.setHoverStyles)
     resizeController.addEventListener('mouseleave', this.removeHoverStyles)

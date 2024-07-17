@@ -143,6 +143,7 @@ function sendDataToConsole () {
     margin-right: 8px;
   }
   .zr_devtools-inspector-value {
+    white-space: nowrap;
     &.number {
       color: #03c;
     }

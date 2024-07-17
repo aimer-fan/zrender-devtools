@@ -15,6 +15,8 @@ export function useStats () {
     stats.dom.style.left = 'auto'
     stats.dom.style.right = '0'
 
+    stats.dom.style.opacity = '0.8'
+
     // document.body.appendChild(stats.dom)
     function animate () {
       stats.begin()
