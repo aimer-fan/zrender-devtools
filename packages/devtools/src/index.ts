@@ -11,6 +11,8 @@ import { isMask } from './stores/mask/shapes'
 import type { TreeItem } from './stores/types'
 import { setOptions } from './stores/options'
 
+import './styles/style.css'
+
 import type { DevtoolsOptions } from './stores/options'
 
 type Elements = ReturnType<ZRenderType['storage']['getRoots']>

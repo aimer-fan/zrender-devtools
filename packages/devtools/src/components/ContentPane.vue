@@ -26,8 +26,6 @@ function emitFlush () {
   flushing.value = true
   emit('flush')
 }
-
-const { wrapper } = useStats()
 </script>
 
 <template>
@@ -53,7 +51,7 @@ const { wrapper } = useStats()
 
     <div class="zr_devtools-pane-content">
       <div v-resize="{ direction: 'bottom' }" class="zr_devtools-content-resizeable" style="height: 300px;">
-        <div ref="wrapper" class="zr_devtools-content-tree">
+        <div class="zr_devtools-content-tree">
           <Tree :data="(tree as TreeItem[])" />
         </div>
       </div>
@@ -68,8 +66,8 @@ const { wrapper } = useStats()
 .zr_devtools-pane {
   width: max(25%, 400px);
   height: 100%;
-  background-color: #fff;
-  border-left: 1px solid #eee;
+  background-color: var(--zrender-devtools-bg-color);
+  border-left: 1px solid var(--zrender-devtools-border-color);
 
   display: flex;
   flex-direction: column;
@@ -85,7 +83,7 @@ const { wrapper } = useStats()
     height: 58px;
     padding: 0 24px;
     box-sizing: border-box;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--zrender-devtools-border-color);
     font-size: 24px;
     .title {
       font-weight: 700;
@@ -95,7 +93,7 @@ const { wrapper } = useStats()
       cursor: pointer;
       margin-right: 4px;
       &.active {
-        color: rgba(66, 184, 131, 1);
+        color: var(--zrender-color-primary);
       }
     }
     .icon-checkbox-badge {
@@ -135,7 +133,7 @@ const { wrapper } = useStats()
       width: 100%;
       height: 100%;
       box-sizing: border-box;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--zrender-devtools-border-color);
       overflow: auto;
       padding: 4px;
     }

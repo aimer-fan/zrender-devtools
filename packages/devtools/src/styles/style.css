@@ -1,0 +1,15 @@
+:root {
+  --zrender-devtools-bg-color: #fff;
+  --zrender-devtools-text-color: #333;
+
+  --zrender-devtools-border-color: #eee;
+  --zrender-devtools-primary-color: rgba(66, 184, 131, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --zrender-devtools-bg-color: #000;
+    --zrender-devtools-border-color: #333;
+    --zrender-devtools-text-color: #fff;
+  }
+}

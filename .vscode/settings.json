@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
     "zrender"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

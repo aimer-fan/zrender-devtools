@@ -30,7 +30,7 @@ const showPane = ref(options.defaultShowPane)
   left: 0;
   width: 100%;
   z-index: 999;
-  color: rgba(0, 0, 0, 0.9);
+  color: var(--zrender-devtools-text-color);
   font-size: 16px;
 
   ::-webkit-scrollbar {
